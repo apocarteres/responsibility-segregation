@@ -14,4 +14,8 @@ public final class GoogleHealthCheckComponent {
   public void checkHealth() {
     googleClient.fetch("healthcheck/status");
   }
+
+  public void scanIndex() {
+    googleClient.fetch("scan/index");
+  }
 }

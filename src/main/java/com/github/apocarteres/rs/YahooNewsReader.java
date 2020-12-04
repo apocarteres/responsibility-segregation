@@ -18,4 +18,8 @@ public final class YahooNewsReader {
   public void readNews() {
     yahooClient.readNews("https://www.yahoo.com/news/read/all");
   }
+
+  public void listEmails() {
+    yahooClient.readNews("https://www.yahoo.com/email/list");
+  }
 }

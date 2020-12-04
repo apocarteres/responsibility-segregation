@@ -1,7 +1,9 @@
 package com.github.apocarteres.rs;
 
 import java.io.Closeable;
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Focuses only on business, so developer doesn't waste time on thinking of resource management.
@@ -13,15 +15,15 @@ public final class YahooClient implements Closeable {
 
   public YahooClient(ConnectionManagerFactory connectionManagerFactory) {
     this.connectionManager = connectionManagerFactory.build();
-  }
-
-  public void readNews(String url) {
-    System.out.printf("YahooClient: fetching %s%n", url);
+    System.out.println("YahooClient is created");
   }
 
   @Override
   public void close() {
-    connectionManager.shutdown();
-    System.out.println("YahooClient was destroyed");
+    new ExecutorShutdownLatch().shutdownAndWait("YahooClient", connectionManager);
+  }
+
+  public void readNews(String url) {
+    connectionManager.submit(() -> System.out.printf("YahooClient: fetching %s%n", url));
   }
 }

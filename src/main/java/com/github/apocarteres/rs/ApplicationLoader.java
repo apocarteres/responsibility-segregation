@@ -21,6 +21,8 @@ public final class ApplicationLoader {
       context.runInHttpContext(h -> {
         new GoogleHealthCheckComponent(h.getGoogleClient()).checkHealth();
         new YahooNewsReader(h.getYahooClient()).readNews();
+        new GoogleHealthCheckComponent(h.getGoogleClient()).scanIndex();
+        new YahooNewsReader(h.getYahooClient()).listEmails();
       });
 
       //other context here

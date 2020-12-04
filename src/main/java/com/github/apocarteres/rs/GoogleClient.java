@@ -15,15 +15,15 @@ public final class GoogleClient implements Closeable {
   public GoogleClient(String prefix, ConnectionManagerFactory factory) {
     this.prefix = prefix;
     this.connectionManager = factory.build();
+    System.out.println("GoogleClient is created");
   }
 
   @Override
   public void close() {
-    connectionManager.shutdown();
-    System.out.println("GoogleClient was destroyed");
+    new ExecutorShutdownLatch().shutdownAndWait("GoogleClient", connectionManager);
   }
 
   public void fetch(String path) {
-    System.out.printf("GoogleClient: fetching %s/%s%n", prefix, path);
+    connectionManager.submit(() -> System.out.printf("GoogleClient: fetching %s/%s%n", prefix, path));
   }
 }
