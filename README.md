@@ -28,6 +28,9 @@ The following rules are applied on the context:
 - context holds uniq ownership of allocated resources
 - context has responsibility to release those resources  
 
+## Questions?
+Always welcome! Just file a new issue for this repo with what you have. The good issue should raise a question 
+or counter-example when contextual resource usage won't work or will be inefficient / unsafe / etc.
 
 ## How to run?
 
